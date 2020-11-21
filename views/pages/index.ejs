@@ -27,10 +27,6 @@
 
 		function wait(callback){ setTimeout(callback, 2000);}
 
-			function clearOutput() {
-				outputDiv.innerHTML = "";
-			}
-
 			//This is the button that loads the picture. By putting all our set up in here, we also ensure that the date can be randomized and the API called multiple times without refreshing the page, making the program truly dynamic.
 			searchButton.addEventListener('click', () => {
 
@@ -43,9 +39,6 @@
 
 				//Preparing the API request, using our api key and our random date. It took me a little while to figure out API keys.
 				const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + spaceDate;
-
-				//Setting our output clear on a timer.
-				wait(clearOutput);
 
 				//Getting the data from NASA's API
 				fetch(spaceURL) 
