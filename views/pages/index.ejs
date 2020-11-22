@@ -19,6 +19,7 @@
 					url: "/dateSubmit",
 					data: dataString
 				}).done(response => {
+					console.log(response);
 					spacePhoto.src = response.url;
 				})
 			})
