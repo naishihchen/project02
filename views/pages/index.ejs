@@ -4,13 +4,34 @@
 		<meta content="utf-8" http-equiv="encoding">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" />
 		<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+		<script>
+
+		const spacePhoto = document.getElementById('spacePhoto');			
+
+			$("form").on("submit", function(e) {
+				e.preventDefault();
+
+				var dataString = $(this).serialize();
+
+				$.ajax ({
+					type: "POST",
+					url: "/dateSubmit",
+					data: dataString;
+				}).done(response => {
+					spacePhoto.src = response.url;
+				})
+			})
+		</script>
 	</head>
 	<body>
 		<div id="photoDisplay">
 			<p>Search for a photo on a specific day! Please use the format 'yyyy-mm-dd'</p>
 			<p>NASA's Photo Of The Day started on June 16th, 1995, so please pick a date on or afterwards.</p>
 			<div id="search-container">
-				<input type="text" id="searchbar">
+				<form name="search" action="">
+					<label for="searchdate" id="search_label">Search Date: </label>
+					<input type="text" name="searchdate" id="searchdate">
+				</form>
 			</div>
 			<div id="buttons">
 				<button id='search'>Get My Photo</button>
@@ -23,38 +44,39 @@
 		</div>
 	</body>
 	<script>
-		const searchButton = document.getElementById('search');
-		const outputDiv = document.getElementById('output');
-		const spacePhoto = document.getElementById('spacePhoto');
+		// const searchButton = document.getElementById('search');
+		// const outputDiv = document.getElementById('output');
+		// const spacePhoto = document.getElementById('spacePhoto');
 
-		function wait(callback){ setTimeout(callback, 2000);}
+		// function wait(callback){ setTimeout(callback, 2000);}
 
-			function clearOutput() {
-				outputDiv.innerHTML = "";
-			}
+		// 	function clearOutput() {
+		// 		outputDiv.innerHTML = "";
+		// 	}
 
-			//This is the button that loads the picture. By putting all our set up in here, we also ensure that the date can be randomized and the API called multiple times without refreshing the page, making the program truly dynamic.
-			searchButton.addEventListener('click', () => {
+		// 	//This is the button that loads the picture. By putting all our set up in here, we also ensure that the date can be randomized and the API called multiple times without refreshing the page, making the program truly dynamic.
+		// 	searchButton.addEventListener('click', () => {
 
-				var date = document.getElementById("searchbar").value;
+		// 		var date = document.getElementById("searchbar").value;
 
-				var datecheck1 = Date.parse(date);
-				var datecheck2 = Date.parse('1995-06-16')
+		// 		var datecheck1 = Date.parse(date);
+		// 		var datecheck2 = Date.parse('1995-06-16')
 
-				//Preparing the API request, using our api key and our random date. It took me a little while to figure out API keys.
-				const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + date;
+		// 		//Preparing the API request, using our api key and our random date. It took me a little while to figure out API keys.
+		// 		const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + date;
 
-				//Setting our output clear on a timer.
-				wait(clearOutput);
+		// 		//Setting our output clear on a timer.
+		// 		wait(clearOutput);
 
-				//Getting the data from NASA's API
-				if(datecheck1 >= datecheck2) {
-					fetch(spaceURL) 
-					.then( response => { outputDiv.innerHTML = "Photo loading..."; 
-						if(response.ok) { return response; } 
-						throw Error(response.statusText); }) .then( response => response.json() ) 
-					.then( data => spacePhoto.src = data.url ) 
-					.catch( error => console.log('There was an error:', error)) }
-				}, false);
+		// 		//Getting the data from NASA's API
+		// 		if(datecheck1 >= datecheck2) {
+		// 			fetch(spaceURL) 
+		// 			.then( response => { outputDiv.innerHTML = "Photo loading..."; 
+		// 				if(response.ok) { return response; } 
+		// 				throw Error(response.statusText); }) 
+		// 			.then( response => response.json() ) 
+		// 			.then( data => spacePhoto.src = data.url ) 
+		// 			.catch( error => console.log('There was an error:', error)) }
+		// 		}, false);
 	</script>
 </html>
