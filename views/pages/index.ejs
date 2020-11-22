@@ -36,9 +36,10 @@
 			//This is the button that loads the picture. By putting all our set up in here, we also ensure that the date can be randomized and the API called multiple times without refreshing the page, making the program truly dynamic.
 			searchButton.addEventListener('click', () => {
 
-				//Creating a random date.
-				var date = new Date(+(new Date()) - Math.floor(Math.random()*100000000000));
-				console.log(date);
+				var date = document.getElementById("searchbar").value;
+
+				var datecheck1 = Date.parse(date);
+				var datecheck2 = Date.parse('1995-06-16')
 
 				//Setting the proper format that the API requires.
 				var spaceDate = date.toISOString().substr(0, 10);
@@ -50,11 +51,12 @@
 				wait(clearOutput);
 
 				//Getting the data from NASA's API
-				fetch(spaceURL) 
-				.then( response => { outputDiv.innerHTML = "Photo loading..."; 
-					if(response.ok) { return response; } 
-					throw Error(response.statusText); }) .then( response => response.json() ) 
-				.then( data => spacePhoto.src = data.url ) 
-				.catch( error => console.log('There was an error:', error)) },false);
+				if(datecheck1 >= datecheck2) {
+					fetch(spaceURL) 
+					.then( response => { outputDiv.innerHTML = "Photo loading..."; 
+						if(response.ok) { return response; } 
+						throw Error(response.statusText); }) .then( response => response.json() ) 
+					.then( data => spacePhoto.src = data.url ) 
+					.catch( error => console.log('There was an error:', error)) }},false);
 	</script>
 </html>
