@@ -38,7 +38,7 @@
 				$.ajax ({
 					type: "POST",
 					url: "/dateSubmit",
-					data: searchdate.serialize();
+					data: searchdate.serialize()
 				}).done(response => {
 					console.log(response);
 					spacePhoto.src = response.url;
