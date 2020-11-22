@@ -41,11 +41,8 @@
 				var datecheck1 = Date.parse(date);
 				var datecheck2 = Date.parse('1995-06-16')
 
-				//Setting the proper format that the API requires.
-				var spaceDate = date.toISOString().substr(0, 10);
-
 				//Preparing the API request, using our api key and our random date. It took me a little while to figure out API keys.
-				const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + spaceDate;
+				const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + date;
 
 				//Setting our output clear on a timer.
 				wait(clearOutput);
@@ -57,6 +54,7 @@
 						if(response.ok) { return response; } 
 						throw Error(response.statusText); }) .then( response => response.json() ) 
 					.then( data => spacePhoto.src = data.url ) 
-					.catch( error => console.log('There was an error:', error)) }},false);
+					.catch( error => console.log('There was an error:', error)) }
+				}, false);
 	</script>
 </html>
