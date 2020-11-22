@@ -11,7 +11,7 @@
 			<p>Search for a photo on a specific day! Please use the format 'yyyy-mm-dd'</p>
 			<p>NASA's Photo Of The Day started on June 16th, 1995, so please pick a date on or afterwards.</p>
 			<div id="search-container">
-				<form name="search" action="">
+				<form name="search" id="search" action="">
 					<label for="searchdate" id="search_label">Search Date: </label>
 					<input type="text" name="searchdate" id="searchdate">
 					<div id="buttons">
@@ -30,22 +30,20 @@
 
 		const spacePhoto = document.getElementById('spacePhoto');			
 
-			$("form").submit(function(e) {
+			$("#search").submit(function(e) {
 				e.preventDefault();
 
 				let searchdate = $('#searchdate').val();
 
-				console.log(searchdate);
-
 				$.ajax ({
 					type: "POST",
 					url: "/dateSubmit",
-					data: searchdate
+					data: searchdate.serialize();
 				}).done(response => {
 					console.log(response);
 					spacePhoto.src = response.url;
-				})
-			})
+				});
+			});
 		</script>
 	<script>
 		// const searchButton = document.getElementById('search');
