@@ -33,14 +33,14 @@
 			$("form").submit(function(e) {
 				e.preventDefault();
 
-				var dataString = $(this).serialize();
+				let searchdate = $('#searchdate').val();
 
 				console.log(dataString);
 
 				$.ajax ({
 					type: "POST",
 					url: "/dateSubmit",
-					data: dataString
+					data: searchdate
 				}).done(response => {
 					console.log(response);
 					spacePhoto.src = response.url;
