@@ -9,7 +9,7 @@
 
 		const spacePhoto = document.getElementById('spacePhoto');			
 
-			$("form").on("submit", function(e) {
+			$("form").submit(function(e) {
 				e.preventDefault();
 
 				var dataString = $(this).serialize();
