@@ -9,6 +9,7 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
   .post('/dateSubmit', (req, res) => {
   	console.log(req.body);
+  	console.log("Flag");
   	var data = "";
   	const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + req.body.searchdate;
 
