@@ -8,8 +8,13 @@
 	</head>
 	<body>
 		<div id="photoDisplay">
-			<p>Search for a photo on a specific day! Please use the format 'yyyy-mm-dd'</p>
-			<p>NASA's Photo Of The Day started on June 16th, 1995, so please pick a date on or afterwards.</p>
+			<h1>Photo of The Day</h1>
+			<div id="website-buttons">
+				<button id="nasa">NASA</button>
+				<button id="bing">Bing</button>
+			</div>
+			<p id="date-format">Search for a photo on a specific day! Please use the format 'yyyy-mm-dd'</p>
+			<p id="beginning-date">NASA's Photo Of The Day started on June 16th, 1995, so please pick a date on or afterwards.</p>
 			<div id="search-container">
 				<form name="search" id="search" action="">
 					<label for="searchdate" id="search_label">Search Date: </label>
@@ -20,7 +25,7 @@
 				</form>
 			</div>
 			<div id="card-face">
-					<img src="../../image-placeholder.png" id="spacePhoto" alt="space photo"> 
+					<img src="../../image-placeholder.png" id="apiPhoto" alt="api photo"> 
 			</div>
 			<div id="output">
 			</div>
@@ -28,7 +33,21 @@
 	</body>
 	<script>
 
-		const spacePhoto = document.getElementById('spacePhoto');			
+		let potdUrl = "/nasaDateSubmit";
+
+		const apiPhoto = document.getElementById('apiPhoto');	
+
+			$("#nasa").click(function() {
+				$("#date-format").html("Search for a photo on a specific day! Please use the format 'yyyy-mm-dd'")
+				$("#beginning-date").html("NASA's Photo Of The Day started on June 16th, 1995, so please pick a date on or afterwards.")
+				potdUrl = "/nasaDateSubmit"
+			});
+
+			$("#bing").click(function() {
+				$("#date-format").html("Search for a photo on a specific day! Please pick a number from 0 to 600.")
+				$("#beginning-date").html("Bing has hundreds of wallpapers to choose from!.")
+				potdUrl = "/bingDateSubmit"
+			});
 
 			$("#search").submit(function(e) {
 				e.preventDefault();
@@ -37,48 +56,12 @@
 
 				$.ajax ({
 					type: "POST",
-					url: "/dateSubmit",
+					url: potdUrl,
 					data: { 'searchdate': searchdate }
 				}).done(response => {
 					console.log(response);
-					spacePhoto.src = response.url;
+					apiPhoto.src = response.url;
 				});
 			});
 		</script>
-	<script>
-		// const searchButton = document.getElementById('search');
-		// const outputDiv = document.getElementById('output');
-		// const spacePhoto = document.getElementById('spacePhoto');
-
-		// function wait(callback){ setTimeout(callback, 2000);}
-
-		// 	function clearOutput() {
-		// 		outputDiv.innerHTML = "";
-		// 	}
-
-		// 	//This is the button that loads the picture. By putting all our set up in here, we also ensure that the date can be randomized and the API called multiple times without refreshing the page, making the program truly dynamic.
-		// 	searchButton.addEventListener('click', () => {
-
-		// 		var date = document.getElementById("searchbar").value;
-
-		// 		var datecheck1 = Date.parse(date);
-		// 		var datecheck2 = Date.parse('1995-06-16')
-
-		// 		//Preparing the API request, using our api key and our random date. It took me a little while to figure out API keys.
-		// 		const spaceURL = 'https://api.nasa.gov/planetary/apod?api_key=Aj3aZZ1ZX9H5YfwheMgVWGyYVwghvILvpOU9MGvt&date=' + date;
-
-		// 		//Setting our output clear on a timer.
-		// 		wait(clearOutput);
-
-		// 		//Getting the data from NASA's API
-		// 		if(datecheck1 >= datecheck2) {
-		// 			fetch(spaceURL) 
-		// 			.then( response => { outputDiv.innerHTML = "Photo loading..."; 
-		// 				if(response.ok) { return response; } 
-		// 				throw Error(response.statusText); }) 
-		// 			.then( response => response.json() ) 
-		// 			.then( data => spacePhoto.src = data.url ) 
-		// 			.catch( error => console.log('There was an error:', error)) }
-		// 		}, false);
-	</script>
 </html>
