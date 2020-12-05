@@ -74,10 +74,10 @@
 				}).done(response => {
 					console.log(response);
 					apiPhoto.src = response.url;
-					title.innerHTML = "Title: " + photoObject.title;
-					description.innerHTML = "Description: " + photoObject.description;
-					hdurl.innerHTML = "HD URL: " + photoObject.hdurl;
-					url.innerHTML = "URL: " + photoObject.url;
+					title.innerHTML = "Title: " + response.title;
+					description.innerHTML = "Description: " + response.description;
+					hdurl.innerHTML = "HD URL: " + response.hdurl;
+					url.innerHTML = "URL: " + response.url;
 				});
 			});
 
