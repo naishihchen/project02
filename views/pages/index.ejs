@@ -31,8 +31,8 @@
 				<div class="card-side" id="card-back">
 					<p id="title">Title: </p>
 					<p id="description">Description: </p>
-					<p id="hdurl">HD URL: </p>
 					<p id="url">URL: </p>
+					<p id="hdurl">HD URL: </p>
 				</div>
 			</div>
 			<div id="output">
@@ -47,8 +47,8 @@
 		const cardDiv = document.getElementById('card');
 		const title = document.getElementById('title');
 		const description = document.getElementById('description');
-		const hdurl = document.getElementById('hdurl');
 		const url = document.getElementById('url');
+		const hdurl = document.getElementById('hdurl');
 
 			$("#nasa").click(function() {
 				$("#date-format").html("Search for a photo on a specific day! Please use the format 'yyyy-mm-dd'")
@@ -72,12 +72,21 @@
 					url: potdUrl,
 					data: { 'searchdate': searchdate }
 				}).done(response => {
-					console.log(response);
-					apiPhoto.src = response.url;
-					title.innerHTML = "Title: " + response.title;
-					description.innerHTML = "Description: " + response.explanation;
-					hdurl.innerHTML = "HD URL: " + response.hdurl;
-					url.innerHTML = "URL: " + response.url;
+
+					if (potdUrl == "/nasaDateSubmit") {
+						console.log(response);
+						apiPhoto.src = response.url;
+						title.innerHTML = "Title: " + response.title;
+						description.innerHTML = "Description: " + response.explanation;
+						url.innerHTML = "URL: " + response.url;
+						hdurl.innerHTML = "HD URL: " + response.hdurl;
+					} else if (potdUrl == "/bingDataSubmit") {
+						apiPhoto.src = response.url;
+						title.innerHTML = "Title: " + response.copyright;
+						description.innerHTML = "";
+						url.innerHTML = "URL: " + response.url;
+						hdurl.innerHTML = "";
+					}
 				});
 			});
 
